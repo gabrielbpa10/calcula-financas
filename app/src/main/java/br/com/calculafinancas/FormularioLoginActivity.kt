@@ -11,5 +11,6 @@ class FormularioLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulario_login)
         setTitle(NOME_BAR_TELA)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }
