@@ -11,13 +11,13 @@
         android:theme="@style/Theme.CalculaFinancas">
 
         <activity android:name=".FormularioLoginActivity"
-                  android:parentActivityName=".MainActivity">
+                  android:parentActivityName=".LoginActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
