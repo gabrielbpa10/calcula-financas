@@ -1,12 +1,9 @@
 package br.com.calculafinancas
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -29,12 +26,12 @@ class FormularioLoginActivity : AppCompatActivity() {
         setTitle(NOME_BAR_TELA)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        nome = findViewById(R.id.activity_main_edit_text_nome_formulario)
-        sobrenome = findViewById(R.id.activity_main_edit_text_sobrenome_formulario)
-        telefone = findViewById(R.id.activity_main_edit_text_telefone_formulario)
-        email = findViewById(R.id.activity_main_edit_text_email_formulario)
-        senha = findViewById(R.id.activity_main_edit_text_senha_formulario)
-        botaoSalvar = findViewById(R.id.activity_main_button_salvar_formulario)
+        nome = findViewById(R.id.activity_formulario_edit_text_nome)
+        sobrenome = findViewById(R.id.activity_formulario_edit_text_sobrenome)
+        telefone = findViewById(R.id.activity_formulario_edit_text_telefone)
+        email = findViewById(R.id.activity_formulario_edit_text_email)
+        senha = findViewById(R.id.activity_formulario_edit_text_senha)
+        botaoSalvar = findViewById(R.id.activity_formulario_button_salvar)
 
         botaoSalvar?.setOnClickListener{
             if(nome?.text.toString() != "" &&
@@ -58,8 +55,8 @@ class FormularioLoginActivity : AppCompatActivity() {
                             handler.post{
                                 Toast.makeText(
                                     applicationContext,
-                                    //"Usuário não cadastrado, por favor tente mais tarde.",
-                                    it.exception?.message,
+                                    "Usuário não cadastrado, por favor tente mais tarde.",
+                                    //it.exception?.message,
                                     Toast.LENGTH_LONG
                                 ).show()
                             }

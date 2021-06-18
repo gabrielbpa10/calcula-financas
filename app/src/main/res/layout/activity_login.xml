@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/activity_main_edit_text_email"
+        android:id="@+id/activity_login_edit_text_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/activity_main_edit_text_senha"
+        android:id="@+id/activity_login_edit_text_senha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -60,22 +60,22 @@
         android:textColorHint="#92FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_edit_text_email" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_edit_text_email" />
 
     <TextView
-        android:id="@+id/activity_main_novo_cadastro"
+        android:id="@+id/activity_login_novo_cadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:clickable="true"
         android:text="Caso ainda não possui cadastro, clique aqui"
         android:textColor="#2196F3"
-        app:layout_constraintEnd_toEndOf="@+id/activity_main_edit_text_senha"
-        app:layout_constraintStart_toStartOf="@+id/activity_main_edit_text_senha"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_edit_text_senha" />
+        app:layout_constraintEnd_toEndOf="@+id/activity_login_edit_text_senha"
+        app:layout_constraintStart_toStartOf="@+id/activity_login_edit_text_senha"
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_edit_text_senha" />
 
     <Button
-        android:id="@+id/activity_main_button_acessar"
+        android:id="@+id/activity_login_button_acessar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -87,6 +87,6 @@
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_novo_cadastro" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_novo_cadastro" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
