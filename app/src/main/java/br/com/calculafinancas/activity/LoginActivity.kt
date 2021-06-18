@@ -1,4 +1,4 @@
-package br.com.calculafinancas
+package br.com.calculafinancas.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import br.com.calculafinancas.R
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -37,7 +38,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.activity_login_novo_cadastro -> {
-                var intent = Intent(this, FormularioLoginActivity::class.java)
+                var intent = Intent(this, RegistroActivity::class.java)
                 startActivity(intent)
             }
 
@@ -47,7 +48,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     mAuth.signInWithEmailAndPassword(email?.text.toString(),senha?.text.toString())
                             .addOnCompleteListener{
                                 if(it.isSuccessful){
-                                    Toast.makeText(this,"Usuário existe",Toast.LENGTH_LONG).show()
+                                    //Toast.makeText(this,"Usuário existe",Toast.LENGTH_LONG).show()
+                                    var intentPrincipal = Intent(this,
+                                        PrincipalActivity::class.java)
+                                    startActivity(intentPrincipal)
+                                    finish()
                                 } else {
                                     Toast.makeText(this,"Usuário não existe",Toast.LENGTH_LONG).show()
                                 }
