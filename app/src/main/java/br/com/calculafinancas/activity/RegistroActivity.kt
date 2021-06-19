@@ -48,7 +48,6 @@ class RegistroActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.activity_registro_button_salvar -> {
-                // Terminar de refatorar o cadastro de usuário
 
                 val nome = nomeEditText?.text.toString()
                 val sobrenome = sobrenomeEditText?.text.toString()
