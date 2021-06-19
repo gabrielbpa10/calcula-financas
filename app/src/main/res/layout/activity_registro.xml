@@ -57,24 +57,6 @@
         app:layout_constraintTop_toBottomOf="@+id/activity_registro_edit_text_nome" />
 
     <EditText
-        android:id="@+id/activity_registro_edit_text_senha"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:hint="Senha"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        android:textColorHint="#92FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_registro_edit_text_email" />
-
-    <EditText
         android:id="@+id/activity_registro_edit_text_telefone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -110,8 +92,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_registro_edit_text_telefone" />
 
+    <EditText
+        android:id="@+id/activity_registro_edit_text_senha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="Senha"
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="#92FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_registro_edit_text_email" />
+
     <Button
-        android:id="@+id/activity_formulario_button_salvar"
+        android:id="@+id/activity_registro_button_salvar"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
