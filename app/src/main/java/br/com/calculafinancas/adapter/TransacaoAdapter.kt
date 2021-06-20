@@ -17,7 +17,7 @@ class TransacaoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransacaoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.transacao_item,parent,false)
-        return TransacaoViewHolder(view,listener!!)
+        return TransacaoViewHolder(view,listener)
     }
 
     override fun getItemCount(): Int {
@@ -35,14 +35,19 @@ class TransacaoAdapter(
         this.listener = listener
     }
 
-    class TransacaoViewHolder (view: View, listener: OnTransacaoItemListener): RecyclerView.ViewHolder(view){
+    class TransacaoViewHolder(view: View, listener: OnTransacaoItemListener?): RecyclerView.ViewHolder(view){
         val itemDescricaoTransacao: TextView = view.findViewById(R.id.cardView_textView_descricao)
         val itemValorTransacao: TextView = view.findViewById(R.id.cardView_textView_valor)
         val itemTipoTransacao: TextView = view.findViewById(R.id.cardView_textView_tipo)
 
         init{
             view.setOnClickListener{
-                listener?.onClick(it,adapterPosition)
+                listener?.onTrasacaoItemClick(it,adapterPosition)
+            }
+
+            view.setOnLongClickListener {
+                listener?.onTransacaoItemLongClick(it,adapterPosition)
+                true
             }
         }
     }

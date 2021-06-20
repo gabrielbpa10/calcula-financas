@@ -4,5 +4,7 @@ import android.view.View
 
 interface OnTransacaoItemListener {
 
-    fun onClick(view: View, position: Int)
+    fun onTrasacaoItemClick(view: View, position: Int)
+
+    fun onTransacaoItemLongClick(view: View, position: Int)
 }
