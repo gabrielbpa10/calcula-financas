@@ -8,7 +8,7 @@
     tools:context=".activity.FormularioActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/activity_formulario_textView_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -35,7 +35,7 @@
         android:textColorHint="#92FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_formulario_textView_titulo" />
 
     <EditText
         android:id="@+id/activity_formulario_editText_valor"
@@ -61,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:checked="false"
         android:fontFamily="@font/baloo"
         android:text="Despesa"
         android:textColor="@color/white"

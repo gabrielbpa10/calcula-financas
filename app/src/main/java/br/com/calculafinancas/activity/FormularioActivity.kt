@@ -2,19 +2,23 @@ package br.com.calculafinancas.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Editable
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import br.com.calculafinancas.R
 import br.com.calculafinancas.model.Transacao
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class FormularioActivity : AppCompatActivity(), View.OnClickListener {
 
     private val NOME_BAR_TELA: String = "Cadastro"
+    private lateinit var tituloTextView: TextView
     private lateinit var descricaoEditText: EditText
     private lateinit var valorEditText: EditText
     private lateinit var despesaCheckBox: CheckBox
@@ -22,18 +26,51 @@ class FormularioActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var botaoSalvar: Button
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firebaseDatabase: FirebaseDatabase
+    private lateinit var transacaoId:String
+    private var handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulario)
         setTitle(NOME_BAR_TELA)
         iniciarComponentesTela()
+        botaoSalvar.setOnClickListener(this)
         iniciarConexaoFireBase()
 
-        botaoSalvar.setOnClickListener(this)
+        transacaoId = intent.getStringExtra("transacao") ?: ""
+
+        if(transacaoId.isNotEmpty()){
+            tituloTextView.text = "Editar Transação"
+
+            var query = firebaseDatabase
+                    .reference
+                    .child("usuarios/${firebaseAuth.uid}/transacoes/${transacaoId}").orderByKey()
+
+            query.addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val transacao = snapshot.getValue(Transacao::class.java)!!
+
+                    handler.post {
+                        descricaoEditText.text = Editable.Factory.getInstance().newEditable(transacao.descricao)
+                        valorEditText.text = Editable.Factory.getInstance().newEditable(transacao.valor)
+                        if(transacao.tipo == "Receita") {
+                            receitaCheckBox.isChecked = true
+                        } else if(transacao.tipo == "Despesa") {
+                            despesaCheckBox.isChecked = true
+                        }
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
     }
 
     fun iniciarComponentesTela() {
+        tituloTextView = findViewById(R.id.activity_formulario_textView_titulo)
         descricaoEditText = findViewById(R.id.activity_formulario_editText_descricao)
         valorEditText = findViewById(R.id.activity_formulario_editText_valor)
         despesaCheckBox = findViewById(R.id.activity_formulario_checkBox_despesa)
@@ -44,6 +81,10 @@ class FormularioActivity : AppCompatActivity(), View.OnClickListener {
     fun iniciarConexaoFireBase(){
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseDatabase = FirebaseDatabase.getInstance()
+    }
+
+    fun cadastrarTransacao(){
+
     }
 
     override fun onClick(view: View?) {
@@ -64,8 +105,11 @@ class FormularioActivity : AppCompatActivity(), View.OnClickListener {
 
                 if(receita && despesa) {
                     Toast.makeText(this,"Não é possível escolher receita e despesa ao mesmo tempo.",Toast.LENGTH_SHORT).show()
+                } else if(receita == false && despesa == false){
+                    Toast.makeText(this,"Receita e Despesa estão em branco, por favor, escolher um.",Toast.LENGTH_SHORT).show()
                 } else if(receita || despesa){
-                    if(descricao.isNotEmpty() && valor.isNotEmpty()){
+                    // Cadastrar transação
+                    if(descricao.isNotEmpty() && valor.isNotEmpty() && transacaoId.isEmpty()){
                         val id = firebaseDatabase.reference.child("usuarios/${firebaseAuth.uid}/transacoes").push().key
                         var transacao: Transacao? = null
 
@@ -75,9 +119,27 @@ class FormularioActivity : AppCompatActivity(), View.OnClickListener {
                             transacao = Transacao(id!!,descricao,valor,"Receita")
                         }
 
-                        val ref = firebaseDatabase.getReference("usuarios/${firebaseAuth.uid}/transacoes/${id}")
+                        val ref = firebaseDatabase
+                                .getReference("usuarios/${firebaseAuth.uid}/transacoes/${id}")
+
                         ref.setValue(transacao)
                         finish()
+
+                        // Atualizar transação
+                    } else if(descricao.isNotEmpty() && valor.isNotEmpty() && transacaoId.isNotEmpty()){
+                        var transacao: Transacao? = null
+
+                        if(despesa){
+                            transacao = Transacao(transacaoId,descricao,valor,"Despesa")
+                        } else if(receita){
+                            transacao = Transacao(transacaoId,descricao,valor,"Receita")
+                        }
+
+                        val ref = firebaseDatabase
+                                .getReference("usuarios/${firebaseAuth.uid}/transacoes/${transacaoId}")
+                        ref.setValue(transacao)
+                        finish()
+
                     }
                 }
             }

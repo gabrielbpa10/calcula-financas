@@ -1,5 +1,6 @@
 package br.com.calculafinancas.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,12 @@ class TransacaoAdapter(
     override fun onBindViewHolder(holder: TransacaoViewHolder, position: Int) {
         holder.itemDescricaoTransacao.text = valores[position].descricao
         holder.itemValorTransacao.text = valores[position].valor
+
+        if(valores[position].tipo == "Receita")
+            holder.itemTipoTransacao.setTextColor(Color.parseColor("Green"))
+         else if(valores[position].tipo == "Despesa")
+            holder.itemTipoTransacao.setTextColor(Color.parseColor("Red"))
+
         holder.itemTipoTransacao.text = valores[position].tipo
 
     }

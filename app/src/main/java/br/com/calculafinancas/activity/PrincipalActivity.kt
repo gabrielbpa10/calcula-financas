@@ -92,11 +92,12 @@ class PrincipalActivity : AppCompatActivity(), OnTransacaoItemListener, View.OnC
     }
 
     override fun onTrasacaoItemClick(view: View, position: Int) {
-        Log.i("tag","Entrou1!")
+        val intentEdicao = Intent(this, FormularioActivity::class.java)
+        intentEdicao.putExtra("transacao",transacoes[position].id)
+        startActivity(intentEdicao)
     }
 
     override fun onTransacaoItemLongClick(view: View, position: Int) {
-        Log.i("tag","Entrou2!")
         val transacao = transacoes[position]
 
         val alerta = AlertDialog.Builder(this)
