@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ class PrincipalActivity : AppCompatActivity(), OnTransacaoItemListener, View.OnC
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var transacaoAdapter: TransacaoAdapter
     private lateinit var handler: Handler
+    private var progressBar: ProgressBar? = null
     private var transacoes: ArrayList<Transacao> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +46,7 @@ class PrincipalActivity : AppCompatActivity(), OnTransacaoItemListener, View.OnC
     }
 
     fun iniciarComponentesTela() {
+        progressBar = findViewById(R.id.activity_principal_progressBar)
         botaoAdd = findViewById(R.id.activity_principal_floatingActionButton)
         botaoAdd.setOnClickListener(this)
         recyclerView = findViewById(R.id.activity_principal_recycler_view)
@@ -56,6 +59,9 @@ class PrincipalActivity : AppCompatActivity(), OnTransacaoItemListener, View.OnC
 
     override fun onStart() {
         super.onStart()
+
+        progressBar?.visibility = ProgressBar.VISIBLE
+
         val query = firebaseDatabase
                 .reference
                 .child("usuarios/${firebaseAuth.uid}/transacoes")
@@ -66,11 +72,28 @@ class PrincipalActivity : AppCompatActivity(), OnTransacaoItemListener, View.OnC
             override fun onDataChange(snapshot: DataSnapshot) {
                 transacoes.clear()
 
+
                 snapshot.children.forEach {
                     val transacao = it.getValue(Transacao::class.java)
                     transacoes.add(transacao!!)
                 }
 
+                var flagReceita = 0
+                var flagDespesa = 0
+                var listaTransacoes = ArrayList<Transacao>()
+                for(index in transacoes.size-1 downTo 0){
+                    if(transacoes[index].tipo == "Receita" && flagReceita < 5) {
+                        flagReceita = flagReceita + 1
+                        listaTransacoes.add(transacoes[index])
+                    } else if(transacoes[index].tipo == "Despesa" && flagDespesa < 5) {
+                        flagDespesa = flagDespesa + 1
+                        listaTransacoes.add(transacoes[index])
+                    }
+                }
+
+                transacoes = listaTransacoes
+
+                progressBar?.visibility = ProgressBar.GONE
                 transacaoAdapter = TransacaoAdapter(transacoes)
                 transacaoAdapter.setOnTransacaoItemListener(this@PrincipalActivity)
                 linearLayoutManager = LinearLayoutManager(applicationContext)
