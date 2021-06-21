@@ -27,7 +27,7 @@ class TransacaoAdapter(
 
     override fun onBindViewHolder(holder: TransacaoViewHolder, position: Int) {
         holder.itemDescricaoTransacao.text = valores[position].descricao
-        holder.itemValorTransacao.text = valores[position].valor
+        holder.itemValorTransacao.text = "R$ ${valores[position].valor},00"
 
         if(valores[position].tipo == "Receita")
             holder.itemTipoTransacao.setTextColor(Color.parseColor("Green"))
