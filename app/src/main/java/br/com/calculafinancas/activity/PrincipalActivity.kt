@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener
 
 class PrincipalActivity : AppCompatActivity(), OnTransacaoItemListener, View.OnClickListener {
 
+    private val NOME_BAR_TELA: String = "Transações"
     private lateinit var botaoAdd: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
     private lateinit var firebaseAuth: FirebaseAuth
@@ -41,6 +42,7 @@ class PrincipalActivity : AppCompatActivity(), OnTransacaoItemListener, View.OnC
         setContentView(R.layout.activity_principal)
         iniciarConexaoFireBase()
         iniciarComponentesTela()
+        setTitle(NOME_BAR_TELA)
         handler = Handler(Looper.getMainLooper())
 
     }
@@ -78,6 +80,8 @@ class PrincipalActivity : AppCompatActivity(), OnTransacaoItemListener, View.OnC
                     transacoes.add(transacao!!)
                 }
 
+
+                // Organiza os dados para 5 ultimas receitas e despesas
                 var flagReceita = 0
                 var flagDespesa = 0
                 var listaTransacoes = ArrayList<Transacao>()

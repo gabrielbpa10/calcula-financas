@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                     startActivity(intentPrincipal)
                                     finish()
                                 } else {
-                                    Toast.makeText(this,"Usuário não existe",Toast.LENGTH_LONG).show()
+                                    Toast.makeText(this,"Usuário ou senha incorretos.",Toast.LENGTH_LONG).show()
                                 }
                     }
                 } else {
